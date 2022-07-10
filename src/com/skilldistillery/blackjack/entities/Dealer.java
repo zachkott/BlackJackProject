@@ -42,7 +42,17 @@ public class Dealer {
 	public void addCardToHand(Card card) {
 		dealerHand.addCard(card);
 	}
-
+	
+	public void hit(Guest player) {
+	player.getHand().addCard(deck.dealCard());
+	}
+	
+	public  void hit() {
+		getHand().addCard(deck.dealCard());
+	}
+	public void stand(Dealer d) {
+		d.showHand();
+	}
 	public void showHand() {
 		int handValue = 0;
 		System.out.println("Dealer's Hand: ");

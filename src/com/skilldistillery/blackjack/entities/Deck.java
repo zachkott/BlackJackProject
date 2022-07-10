@@ -6,11 +6,9 @@ import java.util.List;
 
 public class Deck {
 	private List<Card> deckOCards;
-	
 
 	public Deck() {
 		deckOCards = newDeck();
-
 
 	}
 
@@ -42,7 +40,7 @@ public class Deck {
 	}
 
 	public List<Card> dealCards(int howMany, List<Card> d) {
-		
+
 		for (int i = 0; i < howMany; i++) {
 			if (deckOCards.size() != 0) {
 				d.add(dealCard());

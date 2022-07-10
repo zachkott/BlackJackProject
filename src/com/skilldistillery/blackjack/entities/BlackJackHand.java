@@ -40,7 +40,7 @@ public class BlackJackHand extends Hand {
 			handTotal += card.getValue();
 		}
 		if (handTotal > blackJack) {
-			System.out.println("Bust... Better luck next time");
+//			System.out.println("Bust... Better luck next time");
 			return true;
 		} else {
 			return false;

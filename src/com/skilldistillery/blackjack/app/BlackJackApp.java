@@ -1,18 +1,16 @@
 package com.skilldistillery.blackjack.app;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Scanner;
 
 import com.skilldistillery.blackjack.entities.BlackJackHand;
 import com.skilldistillery.blackjack.entities.Dealer;
-import com.skilldistillery.blackjack.entities.Deck;
 import com.skilldistillery.blackjack.entities.Guest;
 
 public class BlackJackApp {
 	Scanner sc = new Scanner(System.in);
-	private Deck bjDeck = new Deck();
-	private BlackJackHand hand;
+	private Dealer dealer = new Dealer();
+	private Guest player = new Guest();
 
 	public static void main(String[] args) {
 		BlackJackApp app = new BlackJackApp();
@@ -37,6 +35,7 @@ public class BlackJackApp {
 				break;
 
 			case 2:
+				getName();
 				playGame();
 				System.out.println();
 
@@ -70,41 +69,169 @@ public class BlackJackApp {
 
 	}
 
-	public void playGame() {
-		Dealer dealer = new Dealer();
-		Guest player = new Guest();
-
-		boolean keepItRollin = true;
-
+	public void getName() {
 		System.out.println("Welcome to Zach's Blackjack table");
 		System.out.println("Before I take all of your money, what should I call ya?");
 		String name = sc.nextLine();
 
-		System.out.println("Alright " + name + ". Let's play some Blackjack!");
+		System.out.println("Alright " + name + ". Let's play some Blackjack!\n");
+	}
 
-//		do {
-			System.out.println("Shuffling the deck...");
-			dealer.shuffleDeck();
-			System.out.println("Dealing cards...");
+	public void playGame() {
 
-			dealer.getHand().addCard(dealer.deal());
-			dealer.getHand().addCard(dealer.deal());
+		System.out.println("Shuffling the deck...");
+		dealer.shuffleDeck();
+		System.out.println("Dealing cards...\n");
 
-			System.out.println("      ");
+		System.out.println("The first card for the dealer is facing down.\n");
+		dealer.getHand().addCard(dealer.deal());
+		dealer.showHand();
+		dealer.getHand().addCard(dealer.deal());
 
-			player.getHand().addCard(dealer.deal());
-			player.getHand().addCard(dealer.deal());
+		System.out.println("      ");
 
-			System.out.println("     ");
+		player.getHand().addCard(dealer.deal());
+		player.getHand().addCard(dealer.deal());
 
-			player.showHand();
+		System.out.println("     ");
+
+		if (player.getHand() instanceof BlackJackHand && ((BlackJackHand) player.getHand()).isBlackjack()) {
+			System.out.println("Blackjack! You win!");
+		} else if (dealer.getHand() instanceof BlackJackHand && ((BlackJackHand) dealer.getHand()).isBlackjack()) {
+			System.out.println("Blackjack! Dealer wins");
+		} else if (player.getHand() instanceof BlackJackHand && ((BlackJackHand) player.getHand()).isBlackjack()
+				&& dealer.getHand() instanceof BlackJackHand && ((BlackJackHand) dealer.getHand()).isBlackjack()) {
+			System.out.println("Push! You and the dealer both have blackjack!");
+		} else {
+
+			playersCards();
+			dealersCards();
+
+		}
+		
+		
+		// Added logic to determine the winner in every scenario (There's got to be an easier way to do this)
+		if (player.getHand() instanceof BlackJackHand && ((BlackJackHand) player.getHand()).isBlackjack()) {
+			System.out.println("You win!");
+
+		}
+
+		if (dealer.getHand() instanceof BlackJackHand && ((BlackJackHand) dealer.getHand()).isBlackjack()) {
+			System.out.println("Dealer wins.");
+
+		}
+
+		if (player.handTotal() > dealer.handTotal() && player.handTotal() <= 21) {
+			System.out.println("Your hand value is higher than the dealer's!");
+
+		}
+		if (player.handTotal() > dealer.handTotal() && !player.getHand().isBust()) {
+			System.out.println("You win!2");
+		}
+		if (player.handTotal() < dealer.handTotal() && !dealer.getHand().isBust()) {
+			System.out.println("Dealer Wins!");
+		}
+		if (dealer.handTotal() > player.handTotal() && !dealer.getHand().isBust()) {
+			System.out.println("Dealer Wins!");
+		}
+		if (dealer.handTotal() > player.handTotal() && player.getHand().isBust()) {
+			System.out.println("Double bust");
+		}
+		if (dealer.handTotal() < player.handTotal() && player.getHand().isBust() && !dealer.getHand().isBust()) {
+			System.out.println("Dealer wins!");
+		}
+		if (player.handTotal() == dealer.handTotal()) {
+			System.out.println("It's a tie!");
+		}
+
+		player.getHand().clear();
+		dealer.getHand().clear();
+		keepPlaying();
+
+
+
+	}
+
+	public void dealersCards() {
+
+		dealer.showHand();
+
+		if (dealer.handTotal() >= 17) {
+			System.out.println("Dealer stands.");
+			;
+		}
+		while (dealer.handTotal() < 17) {
+			System.out.println("Dealer hits.");
+			dealer.hit();
 			dealer.showHand();
 
-			System.out.println();
-			
-			
-//		} while (keepItRollin);
+			if (dealer.getHand() instanceof BlackJackHand && ((BlackJackHand) dealer.getHand()).isBust()) {
+				System.out.println("Dealer bust!");
+			}
 
+			if (dealer.handTotal() > player.handTotal() && !dealer.getHand().isBust()) {
+				System.out.println("Dealer wins.");
+			}
+			if (player.handTotal() < dealer.handTotal() && dealer.getHand().isBust()) {
+				System.out.println("You Win!");
+			}
+		}
+
+	}
+
+	public void playersCards() {
+		int hitOrStand = 0;
+		player.showHand();
+
+		do {
+
+			System.out.println();
+			System.out.println("What would you like to do?");
+			System.out.println("1. Hit \n2. Stand");
+			hitOrStand = sc.nextInt();
+			sc.nextLine();
+			System.out.println();
+
+			switch (hitOrStand) {
+			case 1:
+				dealer.hit(player);
+				player.showHand();
+				break;
+			case 2:
+
+				break;
+			default:
+				System.out.println("Invalid response. \n 1. Hit \n 2. Stand");
+				break;
+
+			}
+		} while (player.handTotal() < 21 && hitOrStand != 2);
+
+		if (player.getHand() instanceof BlackJackHand && ((BlackJackHand) player.getHand()).isBust()) {
+			System.out.println("Bust! Better luck next time! \n");
+
+		}
+
+	}
+
+	public void keepPlaying() {
+		int choice = 0;
+		System.out.println("Would you like to continue playing? \n 1. Yes \n 2. No");
+		choice = sc.nextInt();
+
+		switch (choice) {
+		case 1:
+			playGame();
+			break;
+
+		case 2:
+			quitApp();
+			break;
+
+		default:
+			System.out.println("Invalid response. Try again");
+			break;
+		}
 	}
 
 	public void appMenu() {
