@@ -5,7 +5,6 @@ import java.util.List;
 
 public abstract class Hand {
 
-	// Every hand will have a list of 52 cards
 	protected List<Card> cards;
 
 	public Hand() {
@@ -13,13 +12,9 @@ public abstract class Hand {
 
 	}
 
-	
-
 	public List<Card> getCards() {
 		return cards;
 	}
-
-
 
 	public void setCards(List<Card> cards) {
 		this.cards = cards;
@@ -33,8 +28,9 @@ public abstract class Hand {
 		cards.removeAll(cards);
 
 	}
-	public void  clear() {
-		
+
+	public void clear() {
+
 		cards = new ArrayList<>();
 	}
 

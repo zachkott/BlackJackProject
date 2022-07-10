@@ -1,8 +1,10 @@
 # Black Jack Game
 
 # Description
+For our week 4 project we were tasked with building an application that allows the user to play a game of Blackjack against the dealer. When the user runs the application they will be brought to a menu where they will have three options. If the user enter a 1 it will display a text box that describes the game of blackjack as well as the objective of the game. If the user enters a 2 they will start the game and will be asked to enter their name. Once the user has entered their name the dealer will deal out the cards, the dealer will deal 2 cards to themselves and 2 cards to the user. After the cards are dealt the player will be shown what cards they have as well as the dealers top card. The user will then decide whether to hit  or stay. If the user hits, the dealer will deal another card to the player and display the updated hand value. The user will be allowed to hit until their hand value exceeds 21, when the hand value exceeds 21 the player busts and the dealer wins. The player can choose to stand at any point after their initial 2 cards have been dealt. The dealer on the other hand will only be allowed to hit if their hand value is 17 or lower. If either the user or dealer hit a blackjack on the initial hand, the game will end and the winner will be announced. After a completed game the user will be asked if they would like to continue playing, if the user says yes, the cards will be reset and the dealer will reshuffle the deck and deal out the cards. If the user says no the application will terminate and the user will receive a goodbye message.
 
 # Technologies Used
-
+Java, Enumerated Types, Object Oriented Programming, Abstract classes, Abstract Methods, Array lists, Do-while loops, For loops, For each loops, Switch statements, If-else statements, Atom, Eclipse, Github, Terminal
 # Lessons Learned
+During this project I learned how important it is to have a solid structure and plan when building an  application with several moving parts. I also gained a better understanding of how to effectively use object oriented programming. 
 # BlackJackProject

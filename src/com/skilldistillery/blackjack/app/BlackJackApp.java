@@ -126,7 +126,7 @@ public class BlackJackApp {
 
 		}
 		if (player.handTotal() > dealer.handTotal() && !player.getHand().isBust()) {
-			System.out.println("You win!2");
+			System.out.println("You win!");
 		}
 		if (player.handTotal() < dealer.handTotal() && !dealer.getHand().isBust()) {
 			System.out.println("Dealer Wins!");
