@@ -14,15 +14,29 @@ public abstract class Hand {
 	}
 
 	
+
+	public List<Card> getCards() {
+		return cards;
+	}
+
+
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
+	}
+
 	public void addCard(Card card) {
 		cards.add(card);
 	}
 
-	public void clear() {
+	public void clearHand() {
 		cards.removeAll(cards);
 
 	}
-	
+	public void  clear() {
+		
+		cards = new ArrayList<>();
+	}
 
 	public abstract int getHandValue();
 

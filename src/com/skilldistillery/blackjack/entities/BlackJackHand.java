@@ -4,15 +4,16 @@ public class BlackJackHand extends Hand {
 
 	// No arg ctor
 	public BlackJackHand() {
+		super();
 	}
 
 	// method that will display the current hand value
 	public int getHandValue() {
 		int handValue = 0;
 		for (Card card : cards) {
-			System.out.println(card);
+
 			handValue += card.getValue();
-			System.out.println("Hand value:  " + handValue);
+//			System.out.println("Hand value:  " + handValue);
 		}
 		return handValue;
 	}
