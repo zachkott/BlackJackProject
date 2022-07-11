@@ -1,6 +1,5 @@
 package com.skilldistillery.blackjack.app;
 
-
 import java.util.Scanner;
 
 import com.skilldistillery.blackjack.entities.BlackJackHand;
@@ -106,12 +105,26 @@ public class BlackJackApp {
 
 			playersCards();
 			dealersCards();
+		}
+		gameResult();
+
+		player.getHand().clear();
+		dealer.getHand().clear();
+		keepPlaying();
+
+	}
+
+	public void gameResult() {
+
+		if (player.getHand() instanceof BlackJackHand && ((BlackJackHand) player.getHand()).isBust()) {
+			System.out.println("You Lose!");
 
 		}
-		
-		
-		// Added logic to determine the winner in every scenario (There's got to be an easier way to do this)
+
+		// Added logic to determine the winner in every scenario (There's got to be an
+		// easier way to do this)
 		if (player.getHand() instanceof BlackJackHand && ((BlackJackHand) player.getHand()).isBlackjack()) {
+
 			System.out.println("You win!");
 
 		}
@@ -134,21 +147,13 @@ public class BlackJackApp {
 		if (dealer.handTotal() > player.handTotal() && !dealer.getHand().isBust()) {
 			System.out.println("Dealer Wins!");
 		}
-		if (dealer.handTotal() > player.handTotal() && player.getHand().isBust()) {
-			System.out.println("Double bust");
-		}
+
 		if (dealer.handTotal() < player.handTotal() && player.getHand().isBust() && !dealer.getHand().isBust()) {
 			System.out.println("Dealer wins!");
 		}
 		if (player.handTotal() == dealer.handTotal()) {
 			System.out.println("It's a tie!");
 		}
-
-		player.getHand().clear();
-		dealer.getHand().clear();
-		keepPlaying();
-
-
 
 	}
 
@@ -215,23 +220,31 @@ public class BlackJackApp {
 	}
 
 	public void keepPlaying() {
-		int choice = 0;
-		System.out.println("Would you like to continue playing? \n 1. Yes \n 2. No");
-		choice = sc.nextInt();
 
-		switch (choice) {
-		case 1:
-			playGame();
-			break;
+		try {
+			int choice = 0;
+			System.out.println("Would you like to continue playing? \n 1. Yes \n 2. No");
+			choice = sc.nextInt();
 
-		case 2:
-			quitApp();
-			break;
+			switch (choice) {
+			case 1:
+				playGame();
+				break;
 
-		default:
+			case 2:
+				quitApp();
+				break;
+
+			default:
+				System.out.println("Invalid response. Try again");
+				break;
+			}
+		} catch (Exception e) {
 			System.out.println("Invalid response. Try again");
-			break;
+			System.out.println();
+			sc.nextLine();
 		}
+		keepPlaying();
 	}
 
 	public void appMenu() {
@@ -249,7 +262,7 @@ public class BlackJackApp {
 	}
 
 	public void quitApp() {
-		System.out.println("Thank you come again");
+		System.out.println("Thank you for stopping by Zach's Blackjack Table. Have a wonderful day!");
 		System.exit(0);
 	}
 }

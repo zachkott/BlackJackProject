@@ -18,8 +18,13 @@ public class Guest {
 	}
 
 	// method that will be called if the hand value is over 21
+	
 	public boolean handIsBust() {
-		return hand.isBust();
+		if(handTotal() > 21) {
+			System.out.println("Bust! You lose!");
+			System.exit(0);
+		}
+		return false;
 	}
 
 	// method that will be called if the hand value is equal to 21
